@@ -1,0 +1,153 @@
+$sub: #131313;
+$headfont: 'Josefin Sans', sans-serif;
+$base: #fc5404;
+$dalt: #f98404;
+$alt: #f9b208;
+$mint: #1eae77;
+
+@mixin flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box{
+    .container{
+        width: 400px;
+        height: 90vh;
+        background-color: $sub;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        border-radius: 10px;
+        overflow: hidden;
+        @include flex();
+        h2{
+            text-transform: uppercase;
+            color: white;
+            font-family: $headfont;
+            font-weight: 600;
+            font-size: 2em;
+            margin: 1em;
+        }
+        small{
+            // border: 1px solid white;
+            position: absolute;
+            // width: inherit;
+            margin-top: -3px;
+            font-size: 13px;
+            padding: 0 30px;
+        }
+        .form-group{
+            margin-bottom: 25px;
+        }
+        .notvalid{
+            border-color: #dc3545;
+        }
+        .panel{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            h5{
+                color: white;
+                letter-spacing: 1px;
+                font-family: 'Montserrat';
+                font-size: 14px;
+                margin: 8px 10px;
+                margin-left: 20px;
+            }
+            button{
+                background: transparent;
+                border: 2px solid $mint;
+                color: white;
+                font-family: 'Montserrat';
+                padding: 5px 20px;
+                height: auto;
+                font-size: 15px;
+                border-radius: 20px;
+                outline: none;
+                transition: .25s;
+                &:hover{
+                    background: $mint;
+                }
+            }
+        }
+        input{
+            background: transparent;
+            padding: 10px 30px;
+            text-align: center;
+            border: 2px solid $alt;
+            letter-spacing: 2px;
+            outline: none;
+            border-radius: 20px;
+            font-family: 'Montserrat';
+            box-shadow: none;
+            margin: 5px;
+            color: white;
+            font-size: 14px;
+            transition: 0.25s;
+
+            &:focus{
+                border-color: $dalt;
+            }
+            &[type=submit]{
+                border: 2px solid $base;
+                text-transform: uppercase;
+                padding: 10px 30px ;
+                font-weight: 500;
+                &:hover{
+                    background: $base;
+                }
+                margin-bottom: 40px;
+            }
+        }
+        .login,.register{
+            background: transparent;
+            width: 100%;
+            transform: translateX(calc(50% - 25px));
+            transition: .5s;
+            // margin: 0;
+            padding: 3em;
+            form{
+                @include flex();
+                flex-direction: column;
+                padding: 0 50px;
+            }
+            a{
+                color: rgb(59, 59, 59);
+                text-decoration: none;
+                font-family: 'Montserrat';
+                font-size: 14px;
+                transition: .25s;
+                &:hover{
+                    color: white;
+                }
+            }
+        }
+        .register{
+            transform: translateX(100%);
+            opacity: 0;
+            margin: 0;
+            padding: 0;
+            input{
+                font-size: 13px;
+                padding: 8px 30px;
+                &[type=submit]{
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}
+
+@media all and (max-width: 500px){
+    .box .container{
+        top: 12%;
+        left: 0;
+        transform: translateY(0);
+        width: 100%;
+        padding: 0;
+    }
+}
