@@ -4,8 +4,46 @@ $base: #fc5404;
 $dalt: #f98404;
 $alt: #f9b208;
 $mint: #1eae77;
+$nred: #ff4356;
+$nskin : #feff9c;
+$nblue: #7afcff;
+$nyellow: #fff740;
+$ngreen: #6cff7d;
 .blur{
-    filter: blur(10px);
+    filter: blur(7px);
+}
+.nav-buttons{
+    position: absolute;
+    right: 0;
+    padding: 30px 40px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    span{
+        font-size: 1.3em;
+        font-family: 'Cabin';
+        font-weight: 600;
+        letter-spacing: 1.3px;
+        color: white;
+        opacity: 0.8;
+    }
+    button{
+        padding: 10px 20px;
+        background: transparent;
+        border: 2px solid #dc3545;
+        background: transparent;
+        color: white;
+        outline: none;
+        font-size: 16px;
+        font-family: 'Montserrat';
+        text-transform: uppercase;
+        // font-weight: 600;
+        border-radius: 60px;
+        transition: .25s;
+        &.logout:hover{
+            background: #dc3545;
+        }
+    }
 }
 .add{
     position: fixed;
@@ -13,9 +51,9 @@ $mint: #1eae77;
     height: 80%;
     top: 50%;
     left: 50%;
-    padding: 50px;
+    padding: 60px 0;
     z-index: 990;
-    background: #1eae77b2;
+    background: $ngreen;
     transform: translate(-50%,-60%);
     transition: 0.5s;
     visibility: hidden;
@@ -25,6 +63,58 @@ $mint: #1eae77;
     opacity: 1;
     transform: translate(-50%,-50%);
     }
+    hr{
+        border: 1px solid #3b3b3b65;
+        width: 90%;
+        background: #3b3b3b65;
+    }
+    input{
+        background: none;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        &::placeholder{
+            color: rgba(34, 34, 34, 0.637);
+        }
+        &[type=text]{
+            font-size: 35px;
+            padding: 10px 30px;
+            padding-bottom: 0;
+            width: 100%;
+        }
+    }
+    .mcontrol{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .emsg{
+            padding: 0 30px;
+            font-weight: 500;
+        }
+    }
+    textarea{
+        height: 350px;
+        resize: none;
+        padding: 10px 30px;
+        background: none;
+        font-size: 19px;
+        border: none;
+        outline: none;
+        box-shadow: none;
+        &::placeholder{
+            color: rgba(34, 34, 34, 0.637);
+        }
+    }
+    button{
+        padding: 10px 20px;
+        font-size: 18px;
+        margin: -5px 20px;
+        font-family: 'Quicksand';
+        float: right;
+        span{
+            margin-right: 10px;
+        }
+    }
     .controls{
         margin: 0;
         position: absolute;
@@ -33,15 +123,113 @@ $mint: #1eae77;
         display: flex;
         justify-content: right;
         button{
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             background: none;
-            border-radius: 50%;
-            border: 2px solid #dc3545;
-            background: #dc3545;
             color: rgb(29, 29, 29);
             span{
                 font-size: 20px;
+            }
+        }
+        .cc{
+            transform: translateX(-10px);
+            span{
+                width: 20px;
+                height: 20px;
+                color: #292929ad;
+                font-size: 20px;
+                cursor: pointer;
+                &.choose{
+                    margin-left: 5px;
+                    font-size: 18px;
+                    transition: 0.5s;
+                    &:hover{
+                        color: #292929;
+                    }
+                    &.active{
+    
+                        transform: rotate(180deg) translate(9px,-5px);
+                    }
+                }
+            }
+        }
+        
+        .colors{
+            padding: 5px;
+            display: flex;
+            position: absolute;
+            // top: 50px;
+            left: -50px;
+            opacity: 0;
+            transform: translateY(0);
+            justify-content: space-between;
+            background: #1a1a1a49;
+            transition: 0.5s;
+            z-index: -99;
+            &.active{
+                transform: translateY(35px);
+                opacity: 1;
+            }
+            
+            span{
+                height: 20px;
+                width: 20px;
+                margin: 0 5px;
+                display: flex;
+                color: #292929ad;
+                align-items: center;
+                justify-content: center;
+                font-size: 14px;
+                &:first-child{
+                    background-color: $ngreen;
+                }
+                &:nth-child(2){
+                    background-color: $nyellow;
+                }
+                &:nth-child(3){
+                    background-color: $nblue;
+                }
+                &:nth-child(4){
+                    background-color: $nskin;
+                }
+                &:nth-child(5){
+                    background-color: $nred;
+                }
+            }
+        }
+        select{
+            background: none;
+            border: none;
+        }
+    }
+}
+.edit{
+    @extend .add;
+    visibility: hidden;
+    opacity: 0;
+    .controls{
+        button.additional{
+            width: 30px;
+            padding: 0;
+            margin: 0;
+            height: 30px;
+            margin: 0 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            transition: .25s;
+            // display: none;
+            span{
+                margin: 0;
+                font-size: 20px;
+                color: rgba(29, 29, 29, 0.664);
+                // &.thumb{
+                //     font-size: 23px;
+                // }
+                &:hover{
+                    color: rgba(29, 29, 29, 0.808);
+                }
             }
         }
     }
@@ -57,6 +245,45 @@ button{
 .container-fluid{
     margin-top: calc(2.6em + 70px);
     padding: 40px;
+    .not-created{
+        display: flex;
+        justify-content: space-evenly;
+        img{
+            width: 15em;
+            height: 15em;
+        }
+        .txt{
+            width: 60%;
+            color: white;
+            h1{
+                font-family: 'Caveat';
+                font-size: 50px;
+            }
+            button{
+                border: 2px solid $alt;
+                background: none;
+                margin-top: 30px;
+                font-family: 'Quicksand';
+                letter-spacing: 2px;
+                font-weight: 600;
+                color: white;
+                text-transform: uppercase;
+                font-size: 16px;
+                padding: 5px 15px;
+                display: flex;
+                align-items: center;
+                border-radius: 60px;
+                transition: 0.25s;
+                &.create:hover{
+                    background: $alt;
+                }
+                span{
+                    margin-right: 10px;
+                    font-size: 25px;
+                }
+            }
+        }
+    }
     .notes{
         .perday{
             border: 2px solid rgb(77, 77, 77);
@@ -68,8 +295,8 @@ button{
                 // margin: 30px;
                 position: relative;
                 left: 30px;
-                top: -15px;
-                width: 150px;
+                top: -30px;
+                width: 250px;
                 text-align: center;
                 background: #1a1a1a;
                 letter-spacing: 2px;
@@ -77,13 +304,25 @@ button{
             margin: 0;
             margin-top: 30px;
             width: 100%;
-            padding: 0;
+            padding: 20px;
             .note{
                 width: 300px;
                 height: 300px;
+                word-wrap: break-word;
                 background: $mint;
-                margin: 30px 0;
+                margin: 20px 0;
                 padding: 20px;
+                overflow: hidden;
+                &::after{
+                    content: '';
+                    position: absolute;
+                    height: 20px;
+                    background: inherit;
+                    width: 80%;
+                    left: 30px;
+                    bottom: 20px;
+                    margin: 0;
+                }
                 h4{
                     font-family: 'Josefin Sans';
                 }

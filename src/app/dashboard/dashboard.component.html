@@ -1,13 +1,65 @@
+<div class="nav-buttons" *ngIf="us.isUserLoggedIn()">
+    <span class="mr-4" *ngIf="fname">Hey, {{fname}}</span>
+    <button (click)="logout()" class="logout">
+        Logout
+    </button>
+</div>
 <div class="container add">
     <div class="controls">
+        <div class="cc"><span><i class="fas fa-palette"></i></span><span class="choose"><i class="fas fa-angle-down"></i></span></div>
+        <div class="colors">
+            <span><i class="fas fa-check green"></i></span>
+            <span><i class="fas fa-check yellow d-none"></i></span>
+            <span><i class="fas fa-check blue d-none"></i></span>
+            <span><i class="fas fa-check skin d-none"></i></span>
+            <span><i class="fas fa-check red d-none"></i></span></div>
+        <button (click)="create.reset()" class="close"><span><i class="fas fa-times"></i></span></button>
+    </div>
+<form #create="ngForm" (ngSubmit)="save()">
+    <div class="form-group">
+        <input type="text" placeholder="Title" #title="ngModel" [(ngModel)]="cn.title" name="aheading" id="heading" autocomplete="off" class="form-control">
+    </div><hr>
+    <div class="form-group">
+        <textarea name="content" id="acontent" placeholder="Content" [(ngModel)]="cn.content" autocomplete="off" class="form-control"></textarea>
+    </div>
+    <div class="form-group" class="mcontrol">
+        <span class="text-danger emsg">{{e}}</span>
+        <div class="">
+            <button type="submit" class="btn btn-success">Save</button>
+        <button type="button" id="av-type" (click)="type()" class="btn btn-secondary"><span><i class="fas fa-microphone"></i></span><span class="vt">Voice type</span></button>
+        </div>
+    </div>
+</form>
+</div>
+<div class="container edit">
+    <div class="controls">
+        <div class="cc d-none"><span><i class="fas fa-palette"></i></span><span class="choose"><i class="fas fa-angle-down"></i></span></div>
+        <div class="colors">
+            <span><i class="fas fa-check green"></i></span>
+            <span><i class="fas fa-check yellow d-none"></i></span>
+            <span><i class="fas fa-check blue d-none"></i></span>
+            <span><i class="fas fa-check skin d-none"></i></span>
+            <span><i class="fas fa-check red d-none"></i></span></div>
+        <button class="additional pin" (click)="pin()"><span class="thumb"><i class="far fa-thumbtack"></i></span></button>
+        <button class="additional unpin" (click)="pin()"><span class="thumb"><i class="fas fa-thumbtack"></i></span></button>
+        <button class="additional" (click)="remove()"><span><i class="fas fa-trash"></i></span></button>
         <button class="close"><span><i class="fas fa-times"></i></span></button>
     </div>
-<form>
+<form #edit="ngForm" (ngSubmit)="update()">
+    <input type="text" class="d-none noteid">
     <div class="form-group">
-        <input type="text" name="heading" id="heading" class="form-control" required>
+        <input type="text" placeholder="Title" [(ngModel)]="un.title" name="heading" id="eheading" class="form-control ro" readonly required>
+    </div><hr>
+    <div class="form-group">
+        <textarea name="content" id="econtent" [(ngModel)]="un.content" placeholder="Content" class="form-control ro" readonly required></textarea>
     </div>
-    <div class="form-group">
-        <textarea name="content" id="content" class="form-control" required></textarea>
+    <button type="button" class="upd btn btn-info"><span><i class="fas fa-pen"></i></span>Edit</button>
+    <div class="form-group sub d-none m-control">
+        <span class="text-danger emsg">{{e}}</span>
+        <div class="">
+            <button type="submit" class="btn btn-success">Update</button>
+            <button type="button" id="ev-type" (click)="etype()" class="btn btn-secondary"><span><i class="fas fa-microphone"></i></span><span class="vt">Voice type</span></button>
+        </div>
     </div>
 </form>
 </div>
@@ -16,17 +68,37 @@
         <div class="controls">
             <h3>Your Notes</h3>
             <div class="edu">
-                <button class="create"><span><i class="far fa-plus" style="transform: rotate(180deg);"></i></span> Create</button>
+                <button class="create" (click)="cr()" *ngIf="notes_avl.length > 0"><span><i class="far fa-plus" style="transform: rotate(180deg);"></i></span> Create</button>
             </div>
         </div>
         <hr>
-        <div class="container-fluid perday">
-            <h4 class="date mb-0">TODAY</h4>
+    <div class="not-created container-fluid" *ngIf="notes_avl.length == 0">
+        <img src="../../assets/no-data.svg">
+        <div class="txt">
+            <h1>Seems like you haven't created any notes yet, create a one :)</h1>
+            <button class="create" (click)="cr()"><span><i class="far fa-plus" style="transform: rotate(180deg);"></i></span> Create</button>
+        </div>
+    </div>
+        <div class="container-fluid perday" *ngIf="pinnotes.length > 0">
+            <h4 class="date mb-0"><i class="fas fa-thumbtack"></i>&nbsp;&nbsp;&nbsp;PINNED NOTES</h4>
             <div class="row">
-                <div class="center col-lg-3 col-md-4 col-sm-6 col-12">
-                    <div class="note">
-                        <h4>Good Morning</h4>
-                        <p>hey good morning to all, Lorem Ipsum Dolor Sit Amet Lorem Ipsum Dolor Sit Amet Lorem Ipsum Dolor Sit Amet.</p>
+                <div class="center col-lg-3 col-md-4 col-sm-6 col-12" (click)="open(n.indexOf(x))" *ngFor="let x of pinnotes">
+                    <div class="note crd" (click)="open(x.id)" [style.background]="x.color">
+                        <h4>{{x.title}}</h4>
+                        <p>{{x.content}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid perday" *ngFor="let x of notes_avl">
+            <h4 class="date mb-0">{{x[0]}}</h4>
+            <div class="row">
+                <div class="center col-lg-3 col-md-4 col-sm-6 col-12" 
+                
+                 *ngFor="let n of x[1]">
+                    <div class="note crd" (click)="open(n.id)" [style.background]="n.color">
+                        <h4>{{n.title}}</h4>
+                        <p>{{n.content}}</p>
                     </div>
                 </div>
             </div>

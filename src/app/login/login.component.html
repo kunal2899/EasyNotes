@@ -1,60 +1,97 @@
 <div class="box container-fluid">
     <div class="container">
         <div class="login">
-            <form #userLog="ngForm">
+            <span class="lmsg" *ngIf="lmsg">{{lmsg}}</span>
+            <form #userLog="ngForm" (ngSubmit)="signIn(userLog.form)">
                 <h2>Login</h2>
                 <div class="form-group">
-                    <input type="text" name="username" id="uname" #luname="ngModel" class="form-control" ngModel
-                    [class.notvalid]="luname.invalid && luname.touched" placeholder="Username" required>
-                    <small class="text-danger" [class.d-none]="luname.valid || luname.untouched">Username is required</small>
+                    <input type="text" name="username" id="uname" #luname="ngModel" class="form-control"
+                        [(ngModel)]="username" [class.notvalid]="luname.invalid && luname.touched"
+                        placeholder="Username" required>
+                    <small class="text-danger" [class.d-none]="luname.valid || luname.untouched">Username is
+                        required</small>
                 </div>
                 <div class="form-group">
-                    <input type="password" name="password" id="pwd" #lpwd="ngModel" class="form-control mt-20" ngModel
-                    [class.notvalid]="lpwd.invalid && lpwd.touched" placeholder="Password" required>
-                    <small class="text-danger" [class.d-none]="lpwd.valid || lpwd.untouched">Password is required</small>
+                    <input type="password" name="password" id="pwd" #lpwd="ngModel" class="form-control mt-20"
+                        [(ngModel)]="password" [class.notvalid]="lpwd.invalid && lpwd.touched" placeholder="Password"
+                        required>
+                    <small class="text-danger" [class.d-none]="lpwd.valid || lpwd.untouched">Password is
+                        required</small>
                 </div>
                 <div class="form-group">
                     <a href="#">Forgot password</a>
                 </div>
-                <div class="form-group">
+                <span class="text-danger" style="font-family: 'Montserrat'; font-size: 14px;"
+                    *ngIf="invalidCredentials"><i style="font-size: 16px;"
+                        class="mr-1 far fa-exclamation-circle"></i>Invalid Credentials</span>
+                <div class="form-group mt-3">
                     <input type="submit" value="Login">
                 </div>
             </form>
             <div class="panel">
                 <h5>New here?</h5>
-                <button>Sign up</button>
+                <button (click)="userLog.reset()">Sign up</button>
             </div>
         </div>
         <div class="register">
-            <form>
+            <form #userReg="ngForm" (ngSubmit)="signUp(userReg.form)">
                 <h2>Register</h2>
                 <div class="form-group">
-                    <input type="text" name="name" id="name" class="form-control" #rname="ngModel" ngModel
-                    [class.notvalid]="rname.invalid && rname.touched" placeholder="Name" required>
+                    <input type="text" name="name" id="name" class="form-control" pattern="[A-z' ']{1,20}"
+                        #rname="ngModel" [(ngModel)]="u.name" [class.notvalid]="rname.invalid && rname.touched"
+                        placeholder="Name" required>
+                    <div class="errbox" *ngIf="rname.errors && (rname.valid || rname.touched)">
+                        <small class="text-danger" *ngIf="rname.errors.required">Name is required</small>
+                        <small class="text-danger" *ngIf="rname.errors.pattern">Invalid name</small>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <input type="email" name="email" id="email" #email="ngModel" class="form-control" ngModel
-                    [class.notvalid]="email.invalid && email.touched" placeholder="Email Id" required>
+                    <input type="email" name="email" id="email" #mail="ngModel" class="form-control"
+                        [(ngModel)]="u.email" [class.notvalid]="mail.invalid && mail.touched" placeholder="Email Id"
+                        pattern="[A-z\d\._-]+@[A-z0-9-]+(\.[A-z]{2,5})(\.[A-z]{2,5})?" required>
+                    <div class="errbox" *ngIf="mail.errors && (mail.valid || mail.touched)">
+                        <small class="text-danger" *ngIf="mail.errors.required">Email ID is required</small>
+                        <small class="text-danger" *ngIf="mail.errors.pattern">Invalid email address</small>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="text" name="phone" id="phone" #phone="ngModel" class="form-control" ngModel
+                <!-- <div class="form-group">
+                    <input type="text" name="phone" id="phone" #phone="ngModel" class="form-control" [(ngModel)] = "u.phone"
                     [class.notvalid]="phone.invalid && phone.touched" placeholder="Mobile Number">
+                </div> -->
+                <div class="form-group">
+                    <input type="text" name="username" id="runame" #runame="ngModel" class="form-control"
+                        [(ngModel)]="u.uname" [class.notvalid]="runame.invalid && runame.touched" placeholder="Username"
+                        pattern="[a-z0-9\._]{1,20}" required>
+                    <div class="errbox" *ngIf="runame.errors && (runame.valid || runame.touched)">
+                        <small class="text-danger" *ngIf="runame.errors.required">Username is required</small>
+                        <small class="text-danger" *ngIf="runame.errors.pattern">Invalid username : It should only
+                            contain alphabetic and numeric characters and not any special characters except '.' and
+                            '_'</small>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="username" id="runame" #runame="ngModel" class="form-control" ngModel
-                    [class.notvalid]="runame.invalid && runame.touched" placeholder="Username" required>
+                    <input type="password" name="password" id="rpwd" pattern="(?=.*[%$+@=#!?_*-])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[a-zA-Z0-9?*@!_\.#$%&-=+]{8,}" #rpwd="ngModel" class="form-control"
+                        [(ngModel)]="u.pass" [class.notvalid]="rpwd.invalid && rpwd.touched" placeholder="Password"
+                        required>
+                    <div class="errbox" *ngIf="rpwd.errors && (rpwd.valid || rpwd.touched)">
+                        <small class="text-danger" *ngIf="rpwd.errors.required">Password is required</small>
+                        <small class="text-danger" *ngIf="rpwd.errors.pattern">Invalid password - It should of minimum 8
+                            characters and a combination of uppercase letter(A-Z), lowercase letter(a-z), digits(0-9) &
+                            special characters(!@#$%...)</small>
+                        <!-- <div class="errmsg text-danger" *ngIf="rpwd.errors.pattern">It should of minimum 8
+                            characters and a combination of uppercase letter(A-Z), lowercase letter(a-z), digits(0-9) &
+                            special characters(!@#$%...)</div> -->
+                    </div>
                 </div>
+                <span class="text-danger" style="font-family: 'Montserrat'; font-size: 14px;" *ngIf="msg && serror"><i
+                        style="font-size: 16px;" class="mr-1 far fa-exclamation-circle"></i>{{msg}}</span>
                 <div class="form-group">
-                    <input type="password" name="password" id="rpwd" #rpwd="ngModel" class="form-control" ngModel
-                    [class.notvalid]="rpwd.invalid && rpwd.touched" placeholder="Password" required>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Register">
+                    <input type="submit" [class.disabled]="userReg.invalid" value="Register">
                 </div>
             </form>
             <div class="panel">
                 <h5>Have an account?</h5>
-                <button>Sign in</button>
+                <button (click)="userReg.reset()">Sign in</button>
             </div>
         </div>
     </div>

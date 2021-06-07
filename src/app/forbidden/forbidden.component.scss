@@ -1,0 +1,55 @@
+.container-fluid{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url(../../assets/p404.png), #1a1a1a;
+    font-family: 'Titillium Web';
+}
+
+.container-fluid .content{
+    max-width: 600px;
+    text-align: center;
+}
+
+.container-fluid .content h2{
+    font-size: 18vw;
+    color: white;
+    line-height: 1em;
+    font-family: 'Cabin';
+    font-weight: 900;
+    text-shadow: 8px 0 8px rgb(61, 60, 60);
+}
+
+.container-fluid .content h4{
+    position: relative;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #1a1a1a;
+    font-weight: 600;
+    background: white;
+    padding: 10px 20px;
+    width: auto;
+    font-family: 'Titillium Web';
+}
+
+.container-fluid .content p{
+    color: white;
+    font-size: 1.2em;
+    font-weight: 500;
+    font-family: 'Titillium Web';
+    letter-spacing: 1px;
+}
+
+.container-fluid .content a{
+    display: inline-block;
+    position: relative;
+    padding: 10px 25px;
+    color: white;
+    text-decoration: none;
+    margin-top: 25px;
+    border-radius: 25px;
+    background: #0509ff;
+    border-bottom: 4px solid #310dd0;
+    font-family: 'Titillium Web';
+}
