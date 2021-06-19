@@ -415,6 +415,23 @@ button{
                 margin: 20px 0;
                 padding: 20px;
                 overflow: hidden;
+                .spinner{
+                    visibility: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                    span{
+                        font-size: 40px;
+                        animation: spin 1s infinite;
+                    }
+                    div{
+                        margin-left: 10px;
+                        font-size: 18px;
+                        font-family: 'Quicksand';
+                        font-weight: 600;
+                    }
+                }
                 &::after{
                     content: '';
                     position: absolute;

@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
   fname:string;
   pinlist = []
   pinnotes = []
+  loading = false;
 
   constructor(public us:AuthService, private router:Router, private ns:NoteService) { 
     this.us.findUserByUsername(sessionStorage.getItem(AUTHENTICATED_USER)).subscribe(
@@ -102,6 +103,10 @@ export class DashboardComponent implements OnInit {
   }
 
   open(n){
+    $("#n"+n+" .spinner").css('visibility','visible');
+    $("#n"+n+" .notspinner").css('display','none');
+
+    // this.loading = true;
     if(this.pinlist.includes(n)){
       $('.edit .pin').addClass('d-none')
       $('.edit .unpin').removeClass('d-none')
@@ -112,14 +117,17 @@ export class DashboardComponent implements OnInit {
     }
     this.ns.get(n).subscribe(
       response=>{
+        // this.loading = false;
         this.un = new Note(response.user.title,response.user.content)
+        $("#n"+n+" .spinner").css('visibility','hidden');
+        $("#n"+n+" .notspinner").css('display','block');
+        $('.main').addClass('blur');
+        $('.nav-buttons').addClass('blur');
+        $('.edit').addClass('active');
         $('.edit').css('background',response.user.color);
         $('.edit .noteid').val(response.user.id)
       }
     )
-      $('.main').addClass('blur');
-      $('.nav-buttons').addClass('blur');
-      $('.edit').addClass('active');
       
   }
 
