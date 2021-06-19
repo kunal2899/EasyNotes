@@ -25,7 +25,7 @@
                     *ngIf="invalidCredentials"><i style="font-size: 16px;"
                         class="mr-1 far fa-exclamation-circle"></i>Invalid Credentials</span>
                 <div class="form-group mt-3">
-                    <input type="submit" value="Login">
+                    <button type="submit"><span class="spinner-a" *ngIf="running"><i class="fas fa-circle-notch"></i></span><span *ngIf="!running">Login</span></button>
                 </div>
             </form>
             <div class="panel">
@@ -86,7 +86,7 @@
                 <span class="text-danger" style="font-family: 'Montserrat'; font-size: 14px;" *ngIf="msg && serror"><i
                         style="font-size: 16px;" class="mr-1 far fa-exclamation-circle"></i>{{msg}}</span>
                 <div class="form-group">
-                    <input type="submit" [class.disabled]="userReg.invalid" value="Register">
+                    <button type="submit" [class.disabled]="userReg.invalid"><span class="spinner-a" *ngIf="rrunning"><i class="fas fa-circle-notch"></i></span><span *ngIf="!rrunning">register</span></button>
                 </div>
             </form>
             <div class="panel">

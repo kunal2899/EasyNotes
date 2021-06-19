@@ -100,16 +100,22 @@ $mint: #1eae77;
             &:focus{
                 border-color: $dalt;
             }
-            &[type=submit]{
-                border: 2px solid $base;
-                text-transform: uppercase;
-                padding: 10px 30px ;
-                font-weight: 500;
-                &:hover{
-                    background: $base;
-                }
-                margin-bottom: 40px;
+        }
+        button[type=submit]{
+            @extend input;
+            border: 2px solid $base;
+            text-transform: uppercase;
+            padding: 10px 30px ;
+            font-weight: 500;
+            &:hover{
+                background: $base;
             }
+            margin-bottom: 40px;
+            .spinner-a{
+                display: inline-block;
+                font-size: 18px;
+                animation: spin 1s infinite;
+            }            
         }
         .login,.register{
             background: transparent;
@@ -144,16 +150,16 @@ $mint: #1eae77;
                 width: 250px;
                 font-family: 'Quicksand';
                 padding: 10px;
-                &[type=submit]{
-                    margin-top: 10px;
-                    font-family: 'Montserrat';
-                    width: auto;
-                    padding: 10px 30px;
-                    margin-bottom: 10px;
-                }
                 &:last-child{
                     margin-bottom: 10px;
                 }
+            }
+            button[type=submit]{
+                margin-top: 10px;
+                font-family: 'Montserrat';
+                width: auto;
+                padding: 10px 30px;
+                margin-bottom: 10px;
             }
             .panel{
                 margin-top: 20px;

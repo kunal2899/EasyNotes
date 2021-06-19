@@ -12,6 +12,18 @@ $ngreen: #6cff7d;
 .blur{
     filter: blur(7px);
 }
+.spinner-cont{
+    span{
+        font-size: 5em;
+        color: white;
+        animation: 1s spin infinite;
+    }
+    @keyframes spin{
+        to{
+            transform: rotate(360deg);
+        }
+    }
+}
 .expand{
     height: 100%;
     width: 300px;

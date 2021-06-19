@@ -86,12 +86,15 @@
             </div>
         </div>
         <hr>
-    <div class="not-created container-fluid" *ngIf="notes_avl.length == 0">
+    <div class="not-created container-fluid" *ngIf="notes_avl.length == 0 && loaded">
         <img src="../../assets/no-data.svg">
         <div class="txt">
             <h1>Seems like you haven't created any notes yet, create a one :)</h1>
             <button class="create" (click)="cr()"><span><i class="far fa-plus" style="transform: rotate(180deg);"></i></span> Create</button>
         </div>
+    </div>
+    <div class="spinner-cont not-created container-fluid" *ngIf="!loaded">
+        <span><i class="fas fa-circle-notch"></i></span>
     </div>
         <div class="container-fluid perday" *ngIf="pinnotes.length > 0">
             <h4 class="date mb-0"><i class="fas fa-thumbtack"></i>&nbsp;&nbsp;&nbsp;PINNED NOTES</h4>

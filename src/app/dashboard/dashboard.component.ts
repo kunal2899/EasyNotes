@@ -243,12 +243,16 @@ export class DashboardComponent implements OnInit {
 
   notes_avl = []
 
+  loaded = true;
+
   refreshAll(){
     let now = new Date()
     let pipe = new DatePipe('en-us').transform(now,'yyyy-MM-dd')
+    this.loaded = false;
     this.ns.getAll(this.us.getAuthenticatedUser(),'0',pipe).subscribe(
       response=>{
         // console.log(response)
+        this.loaded = true;
         let key:Array<string> = response.keys
         key.forEach(x => {
           let frame = []

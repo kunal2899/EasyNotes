@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   invalidCredentials:boolean;
   serror:boolean;
   msg = '';
+  running = false;
+  rrunning = false;
 
   u:User = new User('','','','');
 
@@ -35,8 +37,10 @@ export class LoginComponent implements OnInit {
 
    signIn(form:FormGroup) {
     if(form.valid){
+      this.running = true;
       this.us.authenticate(this.username,this.password).subscribe(
         data => {
+          this.running = false;
           sessionStorage.setItem(TOKEN_EXPIRY, data.expiry);
           sessionStorage.setItem(USER_ID, "" + data.userId);
           sessionStorage.setItem(AUTHENTICATED_USER, this.username);
@@ -46,6 +50,10 @@ export class LoginComponent implements OnInit {
         error => {
           console.log(error);
           this.invalidCredentials = true;
+          this.running = false;
+          setTimeout(()=>{
+            this.invalidCredentials = false;
+          },2000)
         }
       )
     }
@@ -60,6 +68,7 @@ export class LoginComponent implements OnInit {
 
   signUp(form:FormGroup){
     if(form.valid){
+      this.rrunning = true;
       let user ={}
       let n = this.u.name.split(" ")
       if(n.length == 1){
@@ -85,6 +94,7 @@ export class LoginComponent implements OnInit {
         response => {
           // alert("Your account is created, please login to continue.");
           this.lmsg= "Your account is created, login to continue"
+          this.rrunning = false;
           setTimeout(()=>{this.lmsg = ''},3000)
           form.reset()
           $('.register').css('transform','translateX(calc(100%))').css('opacity',0);
@@ -94,8 +104,13 @@ export class LoginComponent implements OnInit {
         error => {
           // console.log(error);
           this.serror = true;
+          this.rrunning = false;
           if(error.error.username){
             this.msg = "Username already exists"
+            setTimeout(()=>{this.serror = false
+            this.msg = ''},3000)
+          }else{
+            this.msg = "Some error occurred, please try again later"
             setTimeout(()=>{this.serror = false
             this.msg = ''},3000)
           }
