@@ -17,8 +17,6 @@ export class HttpIntercepterBasicAuthService implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           Authorization : basicAuthHeaderString
-          // 'Access-Control-Allow-Origin' : '*',
-          // 'Access-Control-Allow-Methods' : 'GET,POST,OPTIONS,DELETE,PUT'
         }
       })
     }

@@ -419,14 +419,26 @@ export class DashboardComponent implements OnInit {
     $('.edu .create').on('click',function(){
       $('.main').addClass('blur');
       $('.nav-buttons').addClass('blur');
+      $('.menu-btn').addClass('blur');
       $('.add').addClass('active');
     })
+
+    $('.menu-btn').on('click',function(){
+      if($(this).hasClass('open')){
+        $(this).removeClass('open');
+        $('.expand').css('transform','translateX(100%)');
+      }else{
+        $(this).addClass('open');
+        $('.expand').css('transform','translateX(0)');
+      }
+  });
 
     $('.add .controls .close').on('click',function(){
       asp.abort()
       $('.main').removeClass('blur');
       $('.nav-buttons').removeClass('blur');
       $('.add').removeClass('active');
+      $('.menu-btn').removeClass('blur');
       $('.add .colors').removeClass('active');
       $('.add .controls .choose').removeClass('active');
     })

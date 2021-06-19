@@ -1,8 +1,22 @@
-<div class="nav-buttons" *ngIf="us.isUserLoggedIn()">
+<div class="nav-buttons d-none d-md-block d-lg-block d-xl-block" *ngIf="us.isUserLoggedIn()">
     <span class="mr-4" *ngIf="fname">Hey, {{fname}}</span>
     <button (click)="logout()" class="logout">
         Logout
     </button>
+</div>
+<div class="expand">
+    <nav>
+        <ul>
+            <li><a>Hey, {{fname}}</a></li>
+            <hr>
+            <li class="fn"><a (click)="logout()">Logout</a></li>
+        </ul>
+    </nav>
+</div>
+<div class="d-block d-md-none d-lg-none d-xl-none">
+    <div class="menu-btn"> <!-- d-lg-none d-block d-xl-none -->
+        <span class="burger"></span>
+    </div>
 </div>
 <div class="container add">
     <div class="controls">

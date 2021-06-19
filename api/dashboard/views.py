@@ -86,9 +86,6 @@ class getNotesBetween(APIView):
         if(from_ == '0'):
             user = User.objects.get(username = uname)
             from_ = user.date_joined
-        # print(from_,to_,uname)
-        # note = Note.objects.filter(uname = uname,created_on__gte = from_, created_on__lte = to_)
-        # note = Note.objects.filter(uname = uname,created_on__range = [from_,to_])
         note = Note.objects.filter(Q(created_on__gte = from_) | Q(created_on__lte = to_),uname = uname)
         result = {}
         for x in note:
@@ -98,8 +95,6 @@ class getNotesBetween(APIView):
             prev = curr.shift(days=-1)
             prevDate = prev.strftime("%B")+" "+prev.strftime("%d")+", "+prev.strftime("%Y")
             currDate = curr.strftime("%B")+" "+curr.strftime("%d")+", "+curr.strftime("%Y")
-            # print(currDate)
-            # print(local)
             obj = local.strftime("%B")+" "+local.strftime("%d")+", "+local.strftime("%Y")
             if(obj == currDate):
                 obj = "TODAY "+currDate

@@ -26,3 +26,17 @@
         }
     }
 }
+@media all and (max-width:600px) {
+    .toolbar{
+        .logo{
+            margin: 20px 0;
+            h2{
+                font-size: 2em;
+            }
+            img{
+                width: 30px;
+                height: 30px;
+            }
+        }
+    }
+}
