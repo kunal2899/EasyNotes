@@ -66,10 +66,6 @@ export class AuthService {
     );
   }
 
-  // authenticate(data: any):Observable<any>{
-  //   return this.http.post(`${APP_URL}/user/login`,data);
-  // }
-
   isUserLoggedIn() {
     let user = sessionStorage.getItem(AUTHENTICATED_USER);
     return !(user == null);
