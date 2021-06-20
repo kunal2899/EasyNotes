@@ -13,17 +13,72 @@ $ngreen: #6cff7d;
     filter: blur(7px);
 }
 .spinner-cont{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     span{
-        font-size: 5em;
         color: white;
-        animation: 1s spin infinite;
-    }
-    @keyframes spin{
-        to{
-            transform: rotate(360deg);
-        }
+        text-transform: lowercase;
+        font-size: 2.3em;
+        font-family: 'Caveat';
     }
 }
+.lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 100px;
+    height: 100px;
+  }
+  .lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    margin: 10px;
+    border-radius: 50%;
+    background: #fff;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+  .lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+  }
+  @keyframes lds-ellipsis1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes lds-ellipsis3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  @keyframes lds-ellipsis2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(24px, 0);
+    }
+  }
 .expand{
     height: 100%;
     width: 300px;
@@ -49,9 +104,24 @@ $ngreen: #6cff7d;
             &.fn:hover{
                 transform: translateX(20px);
             }
+            &.flogout{
+                span{
+                    display: inline-block;
+                    animation: spin 1s infinite;
+                    margin-right: 10px;
+                }
+            }
+            &.fn{
+                text-transform: uppercase;
+                a{
+                    font-family: 'Montserrat';
+                    font-size: 1.4em;
+                    letter-spacing: 1.3px;
+                }
+            }
             a{
                 font-size: 1.8em;
-                font-family: 'Titillium Web';
+                font-family: 'Quicksand';
                 font-weight: 600;
             }
         }
@@ -115,6 +185,9 @@ $ngreen: #6cff7d;
     top: 0;
     display: flex;
     align-items: center;
+    .flogout{
+        margin-right: 10px;
+    }
     span{
         font-size: 1.3em;
         font-family: 'Cabin';
@@ -155,10 +228,13 @@ $ngreen: #6cff7d;
     transition: 0.5s;
     visibility: hidden;
     opacity: 0;
+    form{
+        height: 100%;
+    }
     &.active{
         visibility: visible;
     opacity: 1;
-    transform: translate(-50%,calc(-50% + 50px));
+    transform: translate(-50%,calc(-50% + 30px));
     }
     hr{
         border: 1px solid #3b3b3b65;
@@ -190,7 +266,6 @@ $ngreen: #6cff7d;
         }
     }
     textarea{
-        height: 350px;
         resize: none;
         padding: 10px 30px;
         background: none;
@@ -207,7 +282,8 @@ $ngreen: #6cff7d;
     button{
         padding: 10px 20px;
         font-size: 18px;
-        margin: -5px 20px;
+        margin: 0px 20px;
+        margin-top: 10px;
         margin-bottom: 30px;
         font-family: 'Quicksand';
         text-transform: uppercase;
@@ -215,6 +291,9 @@ $ngreen: #6cff7d;
         float: right;
         span{
             margin-right: 10px;
+        }
+        &:first-child{
+            margin-left: 0;
         }
     }
     .controls{
@@ -235,6 +314,7 @@ $ngreen: #6cff7d;
         }
         .cc{
             transform: translateX(-10px);
+            z-index: 10;
             span{
                 width: 20px;
                 height: 20px;
@@ -249,7 +329,7 @@ $ngreen: #6cff7d;
                         color: #292929;
                     }
                     &.active{
-    
+                        display: inline-block;
                         transform: rotate(180deg) translate(9px,-5px);
                     }
                 }
@@ -271,6 +351,7 @@ $ngreen: #6cff7d;
             &.active{
                 transform: translateY(35px);
                 opacity: 1;
+                z-index: 99;
             }
             
             span{

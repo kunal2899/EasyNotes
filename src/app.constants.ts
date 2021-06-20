@@ -1,6 +1,10 @@
 import { HttpHeaders } from '@angular/common/http'
 
-export const APP_URL = "https://kunalkj.pythonanywhere.com"
+export const APP_URL = 
+"https://kunalkj.pythonanywhere.com"
+// "localhost:8000"
+
+
 export const CORS_HEADERS = {
     headers : new HttpHeaders({
         'Access-Control-Allow-Origin': '*',

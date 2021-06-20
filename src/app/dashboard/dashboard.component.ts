@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   fname:string;
   pinlist = []
   pinnotes = []
-  loading = false;
+  loggingout = false;
 
   constructor(public us:AuthService, private router:Router, private ns:NoteService) { 
     this.us.findUserByUsername(sessionStorage.getItem(AUTHENTICATED_USER)).subscribe(
@@ -39,8 +39,10 @@ export class DashboardComponent implements OnInit {
   logout(){
     let c = confirm('Are you sure to log out?')
     if(c){
+      this.loggingout = true;
     this.us.logout().subscribe(
       result =>{
+        this.loggingout = false;
         sessionStorage.removeItem(AUTHENTICATED_USER);
         sessionStorage.removeItem(TOKEN);
         sessionStorage.removeItem(USER_ID);
@@ -207,7 +209,6 @@ export class DashboardComponent implements OnInit {
       )
     }
   }
-
   
 
   pin(){
@@ -427,6 +428,10 @@ export class DashboardComponent implements OnInit {
     var asp = this.aspeech
     this.refreshAll()
     // setTimeout(()=>{console.log(this.pinlist)},2000)
+    let h1 = parseInt($('.add .aform').css('height'));
+    let h2 = parseInt($('.add .aform input[type=text]').css('height'));
+    $("#acontent").css('height',(h1-h2-80)+"px");
+    $("#econtent").css('height',(h1-h2-80)+"px");
 
     $('.edu .create').on('click',function(){
       $('.main').addClass('blur');
@@ -508,6 +513,7 @@ export class DashboardComponent implements OnInit {
       $(this).addClass('active');
       }
     })
+
     $('.add .colors').children().each(function(x,e){
         $(e).on('click',function(){
           switch(x){
